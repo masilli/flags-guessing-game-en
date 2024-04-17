@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flag Guessing Game</title>
+
+    <link rel="shortcut icon" href="imgs/flag-guessing-game-favicon.jpg" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <header>
+        <button class="shuffle">↺</button>
+        <p>Bandeiras para o Sebastião</p>
+        <p>.</p>
+    </header>
+    <main>
+        <div class="question-header">
+            <div class="correct-answers">✅ <span>0</span></div>
+            <div class="question-title">
+                ADIVINHA A BANDEIRA!
+            </div>
+            <div class="incorrect-answers"><span>0</span> ❌</div>
+        </div>
+        <div class="question-wrapper">
+            <div id="flag"></div>
+            <button id="start-game">PLAY</button>
+        </div>
+        <div class="answers-wrapper">
+            <button class="answer correct" id="optA">A</button>
+            <button class="answer" id="optB">B</button>
+            <button class="answer" id="optC">C</button>
+            <button class="answer" id="optC">D</button>
+        </div>
+    </main>
+    <footer>masilli.com</footer>
+
+    <script src="js/fgg.js"></script>
+    <script src="js/countries-en.js"></script>
+
+</body>
+
+</html>

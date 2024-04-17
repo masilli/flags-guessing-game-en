@@ -1,0 +1,213 @@
+:root {
+    --columns: 200px;
+}
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /*   outline: 1px solid hotpink; */
+}
+
+body {
+    width: 100dvw;
+    height: 100dvh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    font-family: monospace;
+    font-size: 16px;
+}
+
+header,
+footer {
+    background-color: #000;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header button.shuffle {
+    background: #fff;
+    color: #000;
+    aspect-ratio: 1;
+    border-radius: 4px;
+    width: 20px;
+    font-size: 20px;
+}
+
+main {
+    padding: 1vw;
+    background-color: rgb(40, 60, 30);
+    max-width: 100%;
+    display: grid;
+    grid-template-rows: 1fr 3fr 3fr;
+    overflow: auto;
+}
+
+.question-header {
+    color: #fff;
+    font-size: clamp(20px, 6vw, 40px);
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr;
+    place-items: center;
+    overflow: auto;
+}
+
+.question-header .correct-answers {
+    text-align: left;
+}
+
+.question-header .incorrect-answers {
+    text-align: right;    
+}
+
+/* .question-header .correct-answers,
+.question-header .incorrect-answers {
+    animation: grownumber .3s forwards;
+    animation-play-state: paused;
+} */
+
+.highlight-animation {
+    animation: grownumber .5s forwards;
+}
+
+@keyframes grownumber {
+    0%, 100% {
+        scale: 1;
+    }
+    60% {
+        scale: 1.5;
+    }
+}
+
+.question-wrapper {
+    padding: 4%;
+    display: grid;
+    place-items: center;
+}
+
+.question-wrapper img {
+    width: 50%;
+    max-width: 100%;
+}
+
+#flag {
+    display: none;
+    min-width: 50%;
+    min-height: 100%;
+}
+
+.answers-wrapper {
+    display: none;
+    grid-template-columns: calc(50% - 10px) calc(50% - 10px);
+    grid-template-rows: calc(50% - 10px) calc(50% - 10px);
+    grid-gap: 20px;
+}
+
+.answers-wrapper .answer {
+    display: grid;
+    place-items: center;
+    text-align: center;
+    color: #fff;
+    font-size: clamp(16px, 5vw, 32px);
+    background: hsla(160, 40%, 40%, 0.4);
+}
+
+.answers-wrapper button,
+header .shuffle,
+#start-game {
+    border: none;
+    width: auto;
+    overflow: visible;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    line-height: normal;
+    -webkit-font-smoothing: inherit;
+    -moz-osx-font-smoothing: inherit;
+    -webkit-appearance: none;
+    text-align: inherit;
+    cursor: pointer;
+}
+
+.answers-wrapper .correct {
+    /*border: 10px solid hsla(140, 60%, 50%, 1);*/
+    animation: highlight-correct-answer .3s forwards;
+}
+
+@keyframes highlight-correct-answer {
+
+    0%,
+    30%,
+    60% {
+        background: hsla(140, 60%, 50%, 0);
+        border: 10px solid hsla(140, 60%, 50%, 0);
+    }
+
+    20%,
+    50% {
+        background: hsla(140, 60%, 50%, 0.6);
+        border: 10px solid hsla(140, 60%, 50%, .2);
+    }
+
+    100% {
+        background: hsla(140, 60%, 50%, 0.8);
+        border: 10px solid hsla(140, 60%, 50%, 1);
+    }
+}
+
+.answers-wrapper .incorrect {
+    animation: highlight-incorrect-answer .3s forwards;
+}
+
+@keyframes highlight-incorrect-answer {
+    0%,
+    40%,
+    80% {
+        background: hsla(0, 55%, 50%, 0.8);
+        outline: 2px solid hsla(0, 55%, 50%, 0);
+    }
+
+    30%,
+    70% {
+        background: hsla(0, 55%, 50%, 0.8);
+        outline: 10px solid hsla(0, 55%, 50%, 0.8);
+    }
+
+    100% {
+        background: hsla(0, 55%, 50%, 0.8);
+        outline: 2px solid hsla(0, 55%, 50%, 0);
+    }
+}
+
+/* play button */
+#start-game {
+    width: fit-content;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #fff;
+    background: hsla(140, 60%, 50%, 0.7);
+    border: 10px solid hsla(140, 60%, 50%, 1);
+    border-radius: 1em;
+    padding: .8em 1.4em;
+    transition: all ease .3s;
+}
+
+#start-game:hover {
+    font-size: 3.4rem;
+    background: hsla(140, 60%, 50%, 1);
+    border: 14px solid #fff;
+}
+
+#start-game:active {
+    color: hsla(140, 60%, 50%, 1);
+    background: #fff;
+}
