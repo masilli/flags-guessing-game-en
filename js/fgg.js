@@ -751,8 +751,8 @@ function handleButtonClick(event) {
   const clickedCountryName = clickedButton.textContent;
 
   // right & wrong answers elements
-  const correctAnswersElement = document.querySelector(".correct-answers");
-  const incorrectAnswersElement = document.querySelector(".incorrect-answers");
+  const correctAnswersElement = document.querySelector("#correct .score");
+  const incorrectAnswersElement = document.querySelector("#incorrect .score");
 
   // Remove previous classes from all buttons
   answerButtons.forEach((otherButton) => {
@@ -782,8 +782,8 @@ function handleButtonClick(event) {
   // console.log("Incorrect answers:", incorrectAnswers);
 
   // write the right and wrong answers
-  document.querySelector(".correct-answers span").textContent = correctAnswers;
-  document.querySelector(".incorrect-answers span").textContent = incorrectAnswers;
+  correctAnswersElement.textContent = correctAnswers;
+  incorrectAnswersElement.textContent = incorrectAnswers;
 
   // Generate new options after a delay
   setTimeout(() => {
@@ -870,10 +870,12 @@ if (shuffleButton) {
 const playButton = document.getElementById("start-game");
 const showFlag = document.getElementById("flag");
 const answersWrapper = document.querySelector(".answers-wrapper");
+const questionTitle = document.querySelector(".question-title");
 
 if (playButton) {
   playButton.addEventListener("click", () => {
     playButton.style.display = "none";
+    questionTitle.style.opacity = "0";
     showFlag.style.display = "block";
     answersWrapper.style.display = "grid";
     generateOptions();

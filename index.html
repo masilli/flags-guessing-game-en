@@ -17,16 +17,22 @@
 
     <header>
         <button class="shuffle">↺</button>
-        <p>Bandeiras para o Sebastião</p>
+        <p>jogo das bandeiras para o Sebastião</p>
         <p>.</p>
     </header>
     <main>
         <div class="question-header">
-            <div class="correct-answers">✅ <span>0</span></div>
+            <div id="correct" class="answers-score">
+                <div class="icon">✅</div>
+                <div class="score">0</div>
+            </div>
             <div class="question-title">
                 ADIVINHA A BANDEIRA!
             </div>
-            <div class="incorrect-answers"><span>0</span> ❌</div>
+            <div id="incorrect" class="answers-score">
+                <div class="icon">❌</div>
+                <div class="score">0</div>
+            </div>
         </div>
         <div class="question-wrapper">
             <div id="flag"></div>
