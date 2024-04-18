@@ -738,12 +738,15 @@ function removeItem(array, item) {
 // tries and points
 let correctAnswers = 0;
 let incorrectAnswers = 0;
-let answers = 0;
+// let answers = 0; //not being used
 
 let usedCountries = [];
 
 // copy the original array
 const originalCountries = [...countries];
+
+// Track the number of answers
+let totalAnswers = 0;
 
 // Function to handle button click
 function handleButtonClick(event) {
@@ -777,18 +780,16 @@ function handleButtonClick(event) {
     incorrectAnswersElement.classList.add("highlight-animation");
   }
 
-  // Log the right and wrong answers
-  // console.log("Correct answers:", correctAnswers);
-  // console.log("Incorrect answers:", incorrectAnswers);
-
   // write the right and wrong answers
   correctAnswersElement.textContent = correctAnswers;
   incorrectAnswersElement.textContent = incorrectAnswers;
 
+  totalAnswers++; // Increment total answers
+
   // Generate new options after a delay
   setTimeout(() => {
     generateOptions();
-  }, 1000);
+  }, 500);
 }
 
 // Attach event listener to answer buttons
@@ -799,6 +800,23 @@ answerButtons.forEach((button) => {
 // country name variable
 let selectedName;
 
+// Function to handle end of game
+function endGame() {
+  // Display final report
+  console.log("Game over! Total answers:", totalAnswers);
+  console.log("Correct answers:", correctAnswers);
+  console.log("Incorrect answers:", incorrectAnswers);
+
+  // You can also update the UI to indicate end of game
+  const endGame = document.getElementById("end-game");
+  endGame.style.display = "grid";
+
+  const endCorrect = document.querySelector(".end-score #correct .score");
+  endCorrect.textContent = correctAnswers;
+  const endIncorrect = document.querySelector(".end-score #incorrect .score");
+  endIncorrect.textContent = incorrectAnswers;
+}
+
 // Function to generate options
 function generateOptions() {
   // Make a copy of the countries array
@@ -808,6 +826,12 @@ function generateOptions() {
   if (countriesCopy.length < 4) {
     console.error("Not enough countries in the array!");
     return; // Exit the function to prevent further execution
+  }
+
+  // Check if the game has ended
+  if (totalAnswers >= 100) {
+    endGame();
+    return; // Exit function
   }
 
   // Randomly select a country that hasn't been used before
@@ -838,6 +862,9 @@ function generateOptions() {
     removeItem(countriesCopy, randomCountry);
   }
 
+  // how many answers
+  console.log("Total answers at generateOptions: " + totalAnswers);
+
   // Combine the names of the selected country and other countries
   const allCountryNames = [selectedName, ...otherCountries];
 
@@ -850,11 +877,6 @@ function generateOptions() {
     button.textContent = shuffledNames[index];
   });
 
-  // logs
-  //console.log("Selected ISO code:", selectedIsoCode);
-  //console.log("Selected country:", selectedName);
-  //console.log("Other options:", otherCountries);
-  //console.log(countriesCopy.length);
 }
 
 // Attach click event listener to the shuffle button
@@ -871,11 +893,17 @@ const playButton = document.getElementById("start-game");
 const showFlag = document.getElementById("flag");
 const answersWrapper = document.querySelector(".answers-wrapper");
 const questionTitle = document.querySelector(".question-title");
+const answerScore = document.querySelectorAll(".answers-score");
 
-if (playButton) {
+if (playButton) {  
   playButton.addEventListener("click", () => {
     playButton.style.display = "none";
     questionTitle.style.opacity = "0";
+
+    answerScore.forEach(element => {
+      element.style.opacity = "1";
+  });
+
     showFlag.style.display = "block";
     answersWrapper.style.display = "grid";
     generateOptions();
