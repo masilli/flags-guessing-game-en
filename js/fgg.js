@@ -680,6 +680,8 @@ const countries = [
   }
 ];
 
+// import countries from './country.json';
+
 console.log(countries.map(country => country.name));
 
 // find duplicates
