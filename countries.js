@@ -2013,3 +2013,6 @@ countries.forEach((country) => {
   tableBody.appendChild(row);
   i++;
 });
+
+//credits attribution
+//<a href="https://www.flaticon.com/free-icons/africa" title="africa icons">Africa icons created by Kalashnyk - Flaticon</a>
