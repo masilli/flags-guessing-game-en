@@ -351,19 +351,6 @@
         "continentNamePt": "América do Sul"
     },
     {
-        "id": 28,
-        "countryName": "Bonaire, Sint Eustatius and Saba",
-        "independent": false,
-        "countryNamePt": "Bonaire, Santo Eustáquio e Saba",
-        "capitalName": "Kralendijk",
-        "capitalNamePt": "Kralendijk",
-        "flag1x1": "flags/1x1/bq.svg",
-        "flag4x3": "flags/4x3/bq.svg",
-        "isoCode": "bq",
-        "continentName": "South America",
-        "continentNamePt": "América do Sul"
-    },
-    {
         "id": 29,
         "countryName": "Bosnia and Herzegovina",
         "independent": true,
@@ -1027,19 +1014,6 @@
         "continentNamePt": "Europa"
     },
     {
-        "id": 80,
-        "countryName": "French Guiana",
-        "independent": false,
-        "countryNamePt": "Guiana Francesa",
-        "capitalName": "Cayenne",
-        "capitalNamePt": "Caiena",
-        "flag1x1": "flags/1x1/gf.svg",
-        "flag4x3": "flags/4x3/gf.svg",
-        "isoCode": "gf",
-        "continentName": "South America",
-        "continentNamePt": "América do Sul"
-    },
-    {
         "id": 81,
         "countryName": "French Polynesia",
         "independent": false,
@@ -1166,19 +1140,6 @@
         "flag1x1": "flags/1x1/gd.svg",
         "flag4x3": "flags/4x3/gd.svg",
         "isoCode": "gd",
-        "continentName": "North America",
-        "continentNamePt": "América do Norte"
-    },
-    {
-        "id": 91,
-        "countryName": "Guadeloupe",
-        "independent": false,
-        "countryNamePt": "Guadalupe",
-        "capitalName": "Basse-Terre",
-        "capitalNamePt": "Basse-Terre",
-        "flag1x1": "flags/1x1/gp.svg",
-        "flag4x3": "flags/4x3/gp.svg",
-        "isoCode": "gp",
         "continentName": "North America",
         "continentNamePt": "América do Norte"
     },
@@ -1846,19 +1807,6 @@
         "continentNamePt": "África"
     },
     {
-        "id": 143,
-        "countryName": "Mayotte",
-        "independent": false,
-        "countryNamePt": "Maiote",
-        "capitalName": "Mamoudzou",
-        "capitalNamePt": "Mamoudzou",
-        "flag1x1": "flags/1x1/yt.svg",
-        "flag4x3": "flags/4x3/yt.svg",
-        "isoCode": "yt",
-        "continentName": "Africa",
-        "continentNamePt": "África"
-    },
-    {
         "id": 144,
         "countryName": "Mexico",
         "independent": true,
@@ -2401,19 +2349,6 @@
         "flag1x1": "flags/1x1/rw.svg",
         "flag4x3": "flags/4x3/rw.svg",
         "isoCode": "rw",
-        "continentName": "Africa",
-        "continentNamePt": "África"
-    },
-    {
-        "id": 186,
-        "countryName": "Réunion",
-        "independent": false,
-        "countryNamePt": "Ilha da Reunião",
-        "capitalName": "Saint-Denis",
-        "capitalNamePt": "Saint Denis",
-        "flag1x1": "flags/1x1/re.svg",
-        "flag4x3": "flags/4x3/re.svg",
-        "isoCode": "re",
         "continentName": "Africa",
         "continentNamePt": "África"
     },
@@ -3186,16 +3121,16 @@
     },
     {
         "id": 246,
-        "countryName": "Wallis and Futuna",
+        "countryName": "Azores Island",
         "independent": false,
-        "countryNamePt": "Wallis e Futuna",
-        "capitalName": "Mata-Utu",
-        "capitalNamePt": "Mata-Utu",
-        "flag1x1": "flags/1x1/wf.svg",
-        "flag4x3": "flags/4x3/wf.svg",
-        "isoCode": "wf",
-        "continentName": "Oceania",
-        "continentNamePt": "Oceânia"
+        "countryNamePt": "Arquipélago dos Açores",
+        "capitalName": "Ponta Delgada",
+        "capitalNamePt": "Ponta Delgada",
+        "flag1x1": "flags/1x1/azo.svg",
+        "flag4x3": "flags/4x3/azo.svg",
+        "isoCode": "azo",
+        "continentName": "Europe",
+        "continentNamePt": "Europa"
     },
     {
         "id": 247,
