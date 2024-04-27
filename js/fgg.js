@@ -73,9 +73,52 @@ let usedCountries = [];
 //const originalCountries = [...countries];
 
 // Track the number of answers
-let totalAnswers = 95;
+let totalAnswers = 0;
 
-// Function to handle button click
+// ORIGINAL Function to handle button click
+// function handleButtonClick(event) {
+//   const clickedButton = event.target;
+//   const clickedcountryNamePt = clickedButton.textContent;
+
+//   // right & wrong answers elements
+//   const correctAnswersElement = document.querySelector("#correct .score");
+//   const incorrectAnswersElement = document.querySelector("#incorrect .score");
+
+//   // Remove previous classes from all buttons
+//   answerButtons.forEach((otherButton) => {
+//     otherButton.classList.remove("correct", "incorrect");
+//   });
+
+//   // Check if clicked option matches selectedName
+//   if (clickedcountryNamePt === selectedName) {
+//     clickedButton.classList.add("correct");
+//     correctAnswers += 1;
+    
+//     correctAnswersElement.classList.remove("highlight-animation");
+//     void correctAnswersElement.offsetWidth;
+//     correctAnswersElement.classList.add("highlight-animation");
+
+//   } else {
+//     clickedButton.classList.add("incorrect");
+//     incorrectAnswers += 1;
+
+//     incorrectAnswersElement.classList.remove("highlight-animation");
+//     void incorrectAnswersElement.offsetWidth;
+//     incorrectAnswersElement.classList.add("highlight-animation");
+//   }
+
+//   // write the right and wrong answers
+//   correctAnswersElement.textContent = correctAnswers;
+//   incorrectAnswersElement.textContent = incorrectAnswers;
+
+//   totalAnswers++; // Increment total answers
+
+//   // Generate new options after a delay
+//   setTimeout(() => {
+//     generateOptions();
+//   }, 500);
+// }
+
 function handleButtonClick(event) {
   const clickedButton = event.target;
   const clickedcountryNamePt = clickedButton.textContent;
@@ -97,17 +140,23 @@ function handleButtonClick(event) {
     correctAnswersElement.classList.remove("highlight-animation");
     void correctAnswersElement.offsetWidth;
     correctAnswersElement.classList.add("highlight-animation");
-
   } else {
     clickedButton.classList.add("incorrect");
-    incorrectAnswers += 1;
 
+    // Highlight the correct answer
+    answerButtons.forEach((button) => {
+      if (button.textContent === selectedName) {
+        button.classList.add("correct");
+      }
+    });
+
+    incorrectAnswers += 1;
     incorrectAnswersElement.classList.remove("highlight-animation");
     void incorrectAnswersElement.offsetWidth;
     incorrectAnswersElement.classList.add("highlight-animation");
   }
 
-  // write the right and wrong answers
+  // Write the right and wrong answers
   correctAnswersElement.textContent = correctAnswers;
   incorrectAnswersElement.textContent = incorrectAnswers;
 
