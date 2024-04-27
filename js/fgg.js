@@ -285,7 +285,7 @@ if (playButton) {
       element.style.opacity = "1";
     });
 
-    showFlag.style.display = "block";
+    showFlag.style.display = "grid";
     answersWrapper.style.display = "grid";
     generateOptions();
   });

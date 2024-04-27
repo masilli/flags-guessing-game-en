@@ -12,8 +12,10 @@
 }
 
 body {
-    width: 100dvw;
-    height: 100dvh;
+    min-width: 100%;
+    min-height: 100%;
+    width: 100vw;
+    height: 100vh;
     display: grid;
     grid-template-rows: auto 1fr auto;
     font-family: monospace;
@@ -98,6 +100,7 @@ main {
 
 #flag {
     display: none;
+    place-items: center;
     text-align: center;
     min-width: 70%;
     min-height: 100%;
@@ -106,6 +109,16 @@ main {
 #flag img {
     max-height: 33vh;
     max-width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    #flag img {
+        max-height: 100%;
+        min-width: 70vw;
+    }
+    footer {
+        display:none;
+    }
 }
 
 .answers-wrapper {
