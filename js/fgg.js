@@ -146,7 +146,9 @@ function handleButtonClick(event) {
     // Highlight the correct answer
     answerButtons.forEach((button) => {
       if (button.textContent === selectedName) {
-        button.classList.add("correct");
+        setTimeout(() => {
+          button.classList.add("correct");
+        }, 150);
       }
     });
 
@@ -165,7 +167,7 @@ function handleButtonClick(event) {
   // Generate new options after a delay
   setTimeout(() => {
     generateOptions();
-  }, 500);
+  }, 600);
 }
 
 // Attach event listener to answer buttons

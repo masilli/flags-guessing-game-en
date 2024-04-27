@@ -45,7 +45,7 @@ header button.shuffle {
 
 main {
     padding: 1vw;
-    background-color: rgb(40, 60, 30);
+    background-color: rgb(30, 30, 60);
     max-width: 100%;
     display: grid;
     grid-template-rows: 1fr 3fr 3fr;
@@ -100,7 +100,7 @@ main {
 }
 
 #flag img {
-    max-height: 320px;
+    max-height: 33vh;
     max-width: 100%;
 }
 
@@ -108,7 +108,7 @@ main {
     display: none;
     grid-template-columns: calc(50% - 10px) calc(50% - 10px);
     grid-template-rows: calc(50% - 10px) calc(50% - 10px);
-    grid-gap: 20px;
+    grid-gap: 12px;
 }
 
 .answers-wrapper .answer {
@@ -116,8 +116,16 @@ main {
     place-items: center;
     text-align: center;
     color: #fff;
+    font-size: 1.5rem;
     font-size: clamp(16px, 5vw, 32px);
-    background: hsla(160, 40%, 40%, 0.4);
+    background: hsla(220, 40%, 40%, 0.4);
+    box-shadow: 0px 10px hsla(220, 40%, 10%, 0.7);
+}
+
+.answers-wrapper .answer:active {
+    margin-top:10px;
+    margin-bottom:-10px;
+    box-shadow: 0px 0px hsla(220, 40%, 10%, 0.7);
 }
 
 .answers-wrapper button,
@@ -139,7 +147,7 @@ header .shuffle,
 }
 
 .answers-wrapper .correct {
-    animation: highlight-correct-answer .3s forwards;
+    animation: highlight-correct-answer .25s forwards;
 }
 
 @keyframes highlight-correct-answer {
@@ -199,6 +207,13 @@ header .shuffle,
     border-radius: 1em;
     padding: .8em 1.4em;
     transition: all ease .3s;
+    /* position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+}
+
+#start-game {
     position: absolute;
     top: 50%;
     left: 50%;
