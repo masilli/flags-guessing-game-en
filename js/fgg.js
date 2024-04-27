@@ -6,10 +6,10 @@ fetch('js/countries.json')
   .then(data => {
     countries = data;
     //console.log(countries); // Log the entire countries array
-    //console.log(countries.map(country => country.countryName)); // Log the names of the countries
+    //console.log(countries.map(country => country.countryNamePt)); // Log the names of the countries
     originalCountries = [...countries];
     //console.log(originalCountries);
-    //console.log(originalCountries.map(country => country.countryName));
+    //console.log(originalCountries.map(country => country.countryNamePt));
   })
   .catch(error => {
     console.error('Error fetching data:', error);
@@ -35,7 +35,8 @@ fetch('js/countries.json')
 //   });
 
 // define elements
-const flagElement = document.getElementById("flag");
+// const flagElement = document.getElementById("flag");
+const flagImg = document.querySelector("#flag img");
 const answerButtons = document.querySelectorAll(".answer");
 const shuffleButton = document.querySelector(".shuffle");
 
@@ -77,7 +78,7 @@ let totalAnswers = 0;
 // Function to handle button click
 function handleButtonClick(event) {
   const clickedButton = event.target;
-  const clickedCountryName = clickedButton.textContent;
+  const clickedcountryNamePt = clickedButton.textContent;
 
   // right & wrong answers elements
   const correctAnswersElement = document.querySelector("#correct .score");
@@ -89,7 +90,7 @@ function handleButtonClick(event) {
   });
 
   // Check if clicked option matches selectedName
-  if (clickedCountryName === selectedName) {
+  if (clickedcountryNamePt === selectedName) {
     clickedButton.classList.add("correct");
     correctAnswers += 1;
     
@@ -164,18 +165,19 @@ function generateOptions() {
   let selectedCountry;
   do {
     selectedCountry = getRandomItem(countriesCopy);
-  } while (usedCountries.includes(selectedCountry.countryName));
+  } while (usedCountries.includes(selectedCountry.countryNamePt));
 
   // Add the selected country to the array of used countries
-  usedCountries.push(selectedCountry.countryName);
+  usedCountries.push(selectedCountry.countryNamePt);
 
   // Get the ISO code and name of the selected country
   const selectedIsoCode = selectedCountry.isoCode;
-  selectedName = selectedCountry.countryName;
+  selectedName = selectedCountry.countryNamePt;
 
   // Clear existing classes and add the base class "fi" for flag element
-  flagElement.className = "fi";
-  flagElement.classList.add("fi-" + selectedCountry.isoCode);
+  //flagElement.className = "fi";
+  //flagElement.classList.add("fi-" + selectedCountry.isoCode);
+  flagImg.src = selectedCountry.flag4x3;
 
   // Remove the selected country from the array
   removeItem(countriesCopy, selectedCountry);
@@ -184,7 +186,7 @@ function generateOptions() {
   const otherCountries = [];
   for (let i = 0; i < 3; i++) {
     const randomCountry = getRandomItem(countriesCopy);
-    otherCountries.push(randomCountry.countryName);
+    otherCountries.push(randomCountry.countryNamePt);
     removeItem(countriesCopy, randomCountry);
   }
 
@@ -192,10 +194,10 @@ function generateOptions() {
   console.log("Total answers at generateOptions: " + totalAnswers);
 
   // Combine the names of the selected country and other countries
-  const allCountryNames = [selectedName, ...otherCountries];
+  const allcountryNamePts = [selectedName, ...otherCountries];
 
   // Shuffle the array of country names
-  const shuffledNames = shuffleArray(allCountryNames);
+  const shuffledNames = shuffleArray(allcountryNamePts);
 
   // Assign each name to a button
   answerButtons.forEach((button, index) => {
