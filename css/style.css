@@ -122,7 +122,8 @@ main {
 
 .answers-wrapper button,
 header .shuffle,
-#start-game {
+#start-game,
+#replay {
     border: none;
     width: auto;
     overflow: visible;
@@ -187,7 +188,8 @@ header .shuffle,
 }
 
 /* play button */
-#start-game {
+#start-game,
+#replay {
     width: fit-content;
     font-size: 3rem;
     font-weight: bold;
@@ -203,13 +205,15 @@ header .shuffle,
     transform: translate(-50%, -50%);
 }
 
-#start-game:hover {
+#start-game:hover,
+#replay:hover {
     font-size: 3.4rem;
     background: hsla(140, 60%, 50%, 1);
     border: 14px solid #fff;
 }
 
-#start-game:active {
+#start-game:active
+#replay:active {
     color: hsla(140, 60%, 50%, 1);
     background: #fff;
 }

@@ -73,7 +73,7 @@ let usedCountries = [];
 //const originalCountries = [...countries];
 
 // Track the number of answers
-let totalAnswers = 0;
+let totalAnswers = 95;
 
 // Function to handle button click
 function handleButtonClick(event) {
@@ -127,6 +127,8 @@ answerButtons.forEach((button) => {
 // country name variable
 let selectedName;
 
+const endGameUi = document.getElementById("end-game");
+
 // Function to handle end of game
 function endGame() {
   // Display final report
@@ -135,8 +137,7 @@ function endGame() {
   console.log("Incorrect answers:", incorrectAnswers);
 
   // You can also update the UI to indicate end of game
-  const endGame = document.getElementById("end-game");
-  endGame.style.display = "grid";
+  endGameUi.style.display = "grid";
 
   const endCorrect = document.querySelector(".end-score #correct .score");
   endCorrect.textContent = correctAnswers;
@@ -218,6 +219,7 @@ if (shuffleButton) {
 
 // Play button
 const playButton = document.getElementById("start-game");
+const replayButton = document.getElementById("replay");
 const showFlag = document.getElementById("flag");
 const answersWrapper = document.querySelector(".answers-wrapper");
 const questionTitle = document.querySelector(".question-title");
@@ -230,11 +232,19 @@ if (playButton) {
 
     answerScore.forEach(element => {
       element.style.opacity = "1";
-  });
+    });
 
     showFlag.style.display = "block";
     answersWrapper.style.display = "grid";
     generateOptions();
+  });
+} else {
+  console.error("Play button not found!");
+}
+
+if (replayButton) {  
+  replayButton.addEventListener("click", () => {
+    location.reload();
   });
 } else {
   console.error("Play button not found!");
