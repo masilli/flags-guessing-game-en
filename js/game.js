@@ -49,7 +49,7 @@ let incorrectAnswers = 0;
 let usedCountries = [];
 
 // Track the number of answers
-let totalAnswers = 100;
+let totalAnswers = 0;
 
 // answer buttons
 function handleButtonClick(event) {
