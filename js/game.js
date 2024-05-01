@@ -51,6 +51,10 @@ let usedCountries = [];
 // Track the number of answers
 let totalAnswers = 0;
 
+// Variables to track streaks
+let correctStreak = 0;
+let incorrectStreak = 0;
+
 // answer buttons
 function handleButtonClick(event) {
   const clickedButton = event.target;
@@ -97,10 +101,76 @@ function handleButtonClick(event) {
 
   totalAnswers++; // Increment total answers
 
+  // Check if clicked option matches selectedName
+  if (clickedcountryNamePt === selectedName) {
+    // Increment correct answers streak and reset incorrect streak
+    correctStreak++;
+    incorrectStreak = 0;
+
+    // Show message for correct streak
+    switch (correctStreak) {
+      case 5:
+        displayMessage("5 já cá cantam. Continua assim!");
+        break;
+      case 10:
+        displayMessage("10 certas, és um chico esperto!");
+        break;
+      case 25:
+        displayMessage("Uau! 25 de seguida!");
+        break;
+      case 50:
+        displayMessage("Incrível! 50 certas!");
+        break;
+      case 75:
+        displayMessage("75?! Pareces uma enciclopédia!");
+        break;
+      case 99:
+        displayMessage("99!!! Será que consegues o pleno?");
+        break;
+      case 100:
+        displayMessage("Parabéns! Conseguiste!!!");
+        break;
+      default:
+        break;
+    }
+  } else {
+    // Increment incorrect answers streak and reset correct streak
+    incorrectStreak++;
+    correctStreak = 0;
+
+    // Show message for incorrect streak
+    switch (incorrectStreak) {
+      case 3:
+        displayMessage("Oh não! 3 de seguida...");
+        break;
+      case 5:
+        displayMessage("Hey! Tás a dormir?");
+        break;
+      case 10:
+        displayMessage("10 ao lado! Olha... estudasses!");
+        break;
+      case 20:
+        displayMessage("Tantas erradas... assim não vais lá!");
+        break;
+      default:
+        break;
+    }
+  }
+
   // Generate new options after a delay
   setTimeout(() => {
     generateOptions();
   }, 600);
+}
+
+// Function to display messages
+function displayMessage(message) {
+  const popupElement = document.querySelector("#popup");
+  popupElement.textContent = message;
+  popupElement.style.opacity = 1;
+  setTimeout(() => {
+    popupElement.style.opacity = 0;
+  }, 2000);
 }
 
 // Attach event listener to answer buttons
@@ -140,6 +210,7 @@ function generateOptions() {
   // Get the ISO code and name of the selected country
   const selectedIsoCode = selectedCountry.isoCode;
   selectedName = selectedCountry.countryNamePt;
+  console.log(selectedName);
 
   // add respective image
   flagImg.src = selectedCountry.flag4x3;
