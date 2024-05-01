@@ -174,7 +174,6 @@ header .shuffle,
     line-height: normal;
     -webkit-font-smoothing: inherit;
     -moz-osx-font-smoothing: inherit;
-    -webkit-appearance: none;
     text-align: inherit;
     cursor: pointer;
 }
@@ -189,18 +188,15 @@ header .shuffle,
     30%,
     60% {
         background: hsla(140, 60%, 50%, 0);
-        border: 10px solid hsla(140, 60%, 50%, 0);
     }
 
     20%,
     50% {
         background: hsla(140, 60%, 50%, 0.6);
-        border: 10px solid hsla(140, 60%, 50%, .2);
     }
 
     100% {
         background: hsla(140, 60%, 50%, 0.8);
-        border: 10px solid hsla(140, 60%, 50%, 1);
     }
 }
 
@@ -214,18 +210,15 @@ header .shuffle,
     40%,
     80% {
         background: hsla(0, 55%, 50%, 0.8);
-        outline: 2px solid hsla(0, 55%, 50%, 0);
     }
 
     30%,
     70% {
         background: hsla(0, 55%, 50%, 0.8);
-        outline: 10px solid hsla(0, 55%, 50%, 0.8);
     }
 
     100% {
         background: hsla(0, 55%, 50%, 0.8);
-        outline: 2px solid hsla(0, 55%, 50%, 0);
     }
 }
 
