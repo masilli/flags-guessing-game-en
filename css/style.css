@@ -20,6 +20,8 @@ body {
     grid-template-rows: auto 1fr auto;
     font-family: monospace;
     font-size: 12px;
+    background: rgb(62,90,160);
+    background: linear-gradient(180deg, rgba(62,90,160,1) 0%, rgba(30,30,60,1) 100%);
 }
 
 header,
@@ -45,22 +47,54 @@ header button.shuffle {
     font-size: 20px;
 }
 
-main {
-    padding: 1vw;
-    background-color: rgb(30, 30, 60);
-    max-width: 100%;
+#start-game {
+    min-height: 100%;
+    min-width: 100%;
     display: grid;
-    grid-template-rows: 1fr 3fr 3fr;
+    place-items: center;
+    grid-template-rows: 2fr 4fr;
+    overflow: auto;
+}
+
+#game-screen {
+    padding: 1vw;
+    /* background-color: rgb(30, 30, 60); */
+    max-width: 100%;
+    height: 100%;
+    /* max-height: fit-content; */
+    display: none; /*grid when game starts */
+    grid-template-rows: 3fr 3fr;
     overflow: auto;
 }
 
 .question-header {
     color: #fff;
+    font-size: 16px;
     font-size: clamp(16px, 5vw, 32px);
     display: grid;
     grid-template-columns: 1fr 4fr 1fr;
     place-items: center;
     text-align: center;
+}
+
+.question-wrapper {
+    display: grid;
+    place-items: center;
+}
+
+.question-wrapper img {
+    width: 100%;
+    max-width: 100%;
+}
+
+@media screen and (max-width: 768px) {
+    #flag img {
+        max-height: 100%;
+        min-width: 70vw;
+    }
+    footer {
+        display:none;
+    }
 }
 
 .answers-score {
@@ -84,40 +118,6 @@ main {
     }
     60% {
         scale: 2;
-    }
-}
-
-.question-wrapper {
-    padding: 2%;
-    display: grid;
-    place-items: center;
-}
-
-.question-wrapper img {
-    width: 50%;
-    max-width: 100%;
-}
-
-#flag {
-    display: none;
-    place-items: center;
-    text-align: center;
-    min-width: 70%;
-    min-height: 100%;
-}
-
-#flag img {
-    max-height: 33vh;
-    max-width: 100%;
-}
-
-@media screen and (max-width: 768px) {
-    #flag img {
-        max-height: 100%;
-        min-width: 70vw;
-    }
-    footer {
-        display:none;
     }
 }
 
@@ -148,7 +148,7 @@ main {
 
 .answers-wrapper button,
 header .shuffle,
-#start-game,
+#btn-start-game,
 #replay {
     border: none;
     width: auto;
@@ -214,7 +214,7 @@ header .shuffle,
 }
 
 /* play button */
-#start-game,
+#btn-start-game,
 #replay {
     width: fit-content;
     font-size: 3rem;
@@ -225,27 +225,23 @@ header .shuffle,
     border-radius: 1em;
     padding: .8em 1.4em;
     transition: all ease .3s;
-    /* position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); */
 }
 
-#start-game {
+#btn-start-game {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-#start-game:hover,
+#btn-start-game:hover,
 #replay:hover {
     font-size: 3.4rem;
     background: hsla(140, 60%, 50%, 1);
     border: 14px solid #fff;
 }
 
-#start-game:active
+#btn-start-game:active
 #replay:active {
     color: hsla(140, 60%, 50%, 1);
     background: #fff;
@@ -255,6 +251,8 @@ header .shuffle,
 #end-game {
     display: none; /* shows after game ends */
     position: absolute;
+    height:100%;
+    width:100%;
     height: 100dvh;
     width: 100dvw;
     top: 0;
@@ -269,7 +267,7 @@ header .shuffle,
 #end-game .end-score {
     width: 100%;
     display: grid;
-    font-size: 16px;
+    font-size: 20px;
     grid-template-columns: calc(50% - 10px) calc(50% - 10px);
     gap: 20px;
 }
@@ -281,5 +279,6 @@ header .shuffle,
 }
 
 #end-game .score {
+    font-size: 20px;
     font-size: clamp(20px, 6vw, 36px);
 }

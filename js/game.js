@@ -15,27 +15,7 @@ fetch('js/countries.json')
     console.error('Error fetching data:', error);
   });
 
-// fetch('js/countries.json')
-//   .then(response => response.json())
-//   .then(data => {
-//     countries = data;
-//     console.log(countries.map(country => country.name));
-
-//     // Ensure countries is an array before using it
-//     if (Array.isArray(countries)) {
-//       // Assign the fetched data to the originalCountries array declared outside the fetch block
-//       originalCountries = [...countries];
-//       // Now you can use originalCountries
-//     } else {
-//       console.error('Countries data is not an array.');
-//     }
-//   })
-//   .catch(error => {
-//     console.error('Error fetching data:', error);
-//   });
-
-// define elements
-// const flagElement = document.getElementById("flag");
+// declare elements
 const flagImg = document.querySelector("#flag img");
 const answerButtons = document.querySelectorAll(".answer");
 const shuffleButton = document.querySelector(".shuffle");
@@ -65,60 +45,13 @@ function removeItem(array, item) {
 // tries and points
 let correctAnswers = 0;
 let incorrectAnswers = 0;
-// let answers = 0; //not being used
 
 let usedCountries = [];
 
-// copy the original array
-//const originalCountries = [...countries];
-
 // Track the number of answers
-let totalAnswers = 0;
+let totalAnswers = 100;
 
-// ORIGINAL Function to handle button click
-// function handleButtonClick(event) {
-//   const clickedButton = event.target;
-//   const clickedcountryNamePt = clickedButton.textContent;
-
-//   // right & wrong answers elements
-//   const correctAnswersElement = document.querySelector("#correct .score");
-//   const incorrectAnswersElement = document.querySelector("#incorrect .score");
-
-//   // Remove previous classes from all buttons
-//   answerButtons.forEach((otherButton) => {
-//     otherButton.classList.remove("correct", "incorrect");
-//   });
-
-//   // Check if clicked option matches selectedName
-//   if (clickedcountryNamePt === selectedName) {
-//     clickedButton.classList.add("correct");
-//     correctAnswers += 1;
-    
-//     correctAnswersElement.classList.remove("highlight-animation");
-//     void correctAnswersElement.offsetWidth;
-//     correctAnswersElement.classList.add("highlight-animation");
-
-//   } else {
-//     clickedButton.classList.add("incorrect");
-//     incorrectAnswers += 1;
-
-//     incorrectAnswersElement.classList.remove("highlight-animation");
-//     void incorrectAnswersElement.offsetWidth;
-//     incorrectAnswersElement.classList.add("highlight-animation");
-//   }
-
-//   // write the right and wrong answers
-//   correctAnswersElement.textContent = correctAnswers;
-//   incorrectAnswersElement.textContent = incorrectAnswers;
-
-//   totalAnswers++; // Increment total answers
-
-//   // Generate new options after a delay
-//   setTimeout(() => {
-//     generateOptions();
-//   }, 500);
-// }
-
+// answer buttons
 function handleButtonClick(event) {
   const clickedButton = event.target;
   const clickedcountryNamePt = clickedButton.textContent;
@@ -178,24 +111,6 @@ answerButtons.forEach((button) => {
 // country name variable
 let selectedName;
 
-const endGameUi = document.getElementById("end-game");
-
-// Function to handle end of game
-function endGame() {
-  // Display final report
-  console.log("Game over! Total answers:", totalAnswers);
-  console.log("Correct answers:", correctAnswers);
-  console.log("Incorrect answers:", incorrectAnswers);
-
-  // You can also update the UI to indicate end of game
-  endGameUi.style.display = "grid";
-
-  const endCorrect = document.querySelector(".end-score #correct .score");
-  endCorrect.textContent = correctAnswers;
-  const endIncorrect = document.querySelector(".end-score #incorrect .score");
-  endIncorrect.textContent = incorrectAnswers;
-}
-
 // Function to generate options
 function generateOptions() {
   // Make a copy of the countries array
@@ -226,9 +141,7 @@ function generateOptions() {
   const selectedIsoCode = selectedCountry.isoCode;
   selectedName = selectedCountry.countryNamePt;
 
-  // Clear existing classes and add the base class "fi" for flag element
-  //flagElement.className = "fi";
-  //flagElement.classList.add("fi-" + selectedCountry.isoCode);
+  // add respective image
   flagImg.src = selectedCountry.flag4x3;
 
   // Remove the selected country from the array
@@ -259,6 +172,25 @@ function generateOptions() {
 
 }
 
+// declare endGameUi
+const endGameUi = document.getElementById("end-game");
+
+// Function to handle end of game
+function endGame() {
+  // Display final report
+  console.log("Game over! Total answers:", totalAnswers);
+  console.log("Correct answers:", correctAnswers);
+  console.log("Incorrect answers:", incorrectAnswers);
+
+  // You can also update the UI to indicate end of game
+  endGameUi.style.display = "grid";
+
+  const endCorrect = document.querySelector(".end-score #correct .score");
+  endCorrect.textContent = correctAnswers;
+  const endIncorrect = document.querySelector(".end-score #incorrect .score");
+  endIncorrect.textContent = incorrectAnswers;
+}
+
 // Attach click event listener to the shuffle button
 if (shuffleButton) {
   shuffleButton.addEventListener("click", () => {
@@ -269,17 +201,20 @@ if (shuffleButton) {
 }
 
 // Play button
-const playButton = document.getElementById("start-game");
+const startScreen = document.getElementById("start-game");
+const gameScreen = document.getElementById("game-screen");
+const playButton = document.getElementById("btn-start-game");
 const replayButton = document.getElementById("replay");
 const showFlag = document.getElementById("flag");
 const answersWrapper = document.querySelector(".answers-wrapper");
-const questionTitle = document.querySelector(".question-title");
+//const questionTitle = document.querySelector(".question-title");
 const answerScore = document.querySelectorAll(".answers-score");
 
 if (playButton) {  
   playButton.addEventListener("click", () => {
-    playButton.style.display = "none";
-    questionTitle.style.opacity = "0";
+    startScreen.style.display = "none";
+    gameScreen.style.display = "grid";
+    //questionTitle.style.opacity = "0";
 
     answerScore.forEach(element => {
       element.style.opacity = "1";
