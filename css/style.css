@@ -122,9 +122,9 @@ header button.shuffle {
         min-width: 70vw;
     }
 
-    footer {
+    /* footer {
         display: none;
-    }
+    } */
 }
 
 .answers-score {
