@@ -1,9 +1,9 @@
 let countries = [];
 let originalCountries = []; // Declare the originalCountries array outside the fetch block
 
-fetch('js/countries.json')
-  .then(response => response.json())
-  .then(data => {
+fetch("js/countries.json")
+  .then((response) => response.json())
+  .then((data) => {
     countries = data;
     //console.log(countries); // Log the entire countries array
     //console.log(countries.map(country => country.countryNamePt)); // Log the names of the countries
@@ -11,8 +11,8 @@ fetch('js/countries.json')
     //console.log(originalCountries);
     //console.log(originalCountries.map(country => country.countryNamePt));
   })
-  .catch(error => {
-    console.error('Error fetching data:', error);
+  .catch((error) => {
+    console.error("Error fetching data:", error);
   });
 
 // declare elements
@@ -73,7 +73,7 @@ function handleButtonClick(event) {
   if (clickedcountryNamePt === selectedName) {
     clickedButton.classList.add("correct");
     correctAnswers += 1;
-    
+
     correctAnswersElement.classList.remove("highlight-animation");
     void correctAnswersElement.offsetWidth;
     correctAnswersElement.classList.add("highlight-animation");
@@ -133,10 +133,12 @@ function handleButtonClick(event) {
       default:
         break;
     }
+
+    // Log correct streak value for debugging
+    // console.log("Correct Streak:", correctStreak);
   } else {
-    // Increment incorrect answers streak and reset correct streak
+    // Increment incorrect answers streak
     incorrectStreak++;
-    correctStreak = 0;
 
     // Show message for incorrect streak
     switch (incorrectStreak) {
@@ -147,7 +149,7 @@ function handleButtonClick(event) {
         displayMessage("Hey! Tás a dormir?");
         break;
       case 10:
-        displayMessage("10 ao lado! Olha... estudasses!");
+        displayMessage("10 erradas! Estudasses...");
         break;
       case 20:
         displayMessage("Tantas erradas... assim não vais lá!");
@@ -155,6 +157,27 @@ function handleButtonClick(event) {
       default:
         break;
     }
+
+    // Check if the correct streak is interrupted
+    if (correctStreak >= 10 && correctStreak < 25) {
+      displayMessage("Oh não! Tinhas " + correctStreak + " certas...");
+    } else if (correctStreak >= 25 && correctStreak < 49) {
+      displayMessage("Já ias em " + correctStreak + " sem falhar.");
+    } else if (correctStreak >= 49 && correctStreak < 50) {
+      displayMessage("Oh!!! Quase que chegavas a 50!");
+    } else if (correctStreak >= 50 && correctStreak < 74) {
+      displayMessage("Depois de " + correctStreak + " certas, falhas assim?");
+    } else if (correctStreak >= 75 && correctStreak < 99) {
+      displayMessage(correctStreak + " sem errar, e agora isto?");
+    } else if (correctStreak >= 99) {
+      displayMessage("COMO??? Erraste a última!");
+    }
+
+    // reset correct streak
+    correctStreak = 0;
+
+    // Log incorrect streak value for debugging
+    // console.log("Incorrect Streak:", incorrectStreak);
   }
 
   // Generate new options after a delay
@@ -168,9 +191,11 @@ function displayMessage(message) {
   const popupElement = document.querySelector("#popup");
   popupElement.textContent = message;
   popupElement.style.opacity = 1;
+  popupElement.style.top = 40 + "px";
   setTimeout(() => {
     popupElement.style.opacity = 0;
-  }, 2000);
+    popupElement.style.top = 20 + "px";
+  }, 3000);
 }
 
 // Attach event listener to answer buttons
@@ -240,7 +265,6 @@ function generateOptions() {
     button.classList.remove("correct", "incorrect");
     button.textContent = shuffledNames[index];
   });
-
 }
 
 // declare endGameUi
@@ -281,13 +305,13 @@ const answersWrapper = document.querySelector(".answers-wrapper");
 //const questionTitle = document.querySelector(".question-title");
 const answerScore = document.querySelectorAll(".answers-score");
 
-if (playButton) {  
+if (playButton) {
   playButton.addEventListener("click", () => {
     startScreen.style.display = "none";
     gameScreen.style.display = "grid";
     //questionTitle.style.opacity = "0";
 
-    answerScore.forEach(element => {
+    answerScore.forEach((element) => {
       element.style.opacity = "1";
     });
 
@@ -299,7 +323,7 @@ if (playButton) {
   console.error("Play button not found!");
 }
 
-if (replayButton) {  
+if (replayButton) {
   replayButton.addEventListener("click", () => {
     location.reload();
   });

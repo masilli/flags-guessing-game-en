@@ -18,9 +18,10 @@ body {
     height: 100vh;
     display: grid;
     grid-template-rows: auto 1fr auto;
-    font-family: "Paytone One", sans-serif;
-    font-weight: 400;
-    font-style: normal;
+    /* font-family: "Paytone One", sans-serif; */
+    font-family: "Open Sans", sans-serif;
+    /* font-weight: 400;
+    font-style: normal; */
     font-size: 12px;
     background: rgb(62, 90, 160);
     background: linear-gradient(180deg, rgba(62, 90, 160, 1) 0%, rgba(30, 30, 60, 1) 100%);
@@ -33,6 +34,8 @@ footer {
     color: #fff;
     padding: 20px;
     text-align: center;
+    font-family: monospace;
+    font-size: 10px;
 }
 
 header {
@@ -50,6 +53,11 @@ header button.shuffle {
     font-size: 20px;
 }
 
+header .icon,
+header .seb {
+    color: #97b5f4;
+}
+
 #start-game {
     min-height: 100%;
     min-width: 100%;
@@ -57,6 +65,7 @@ header button.shuffle {
     place-items: center;
     grid-template-rows: 2fr 4fr;
     overflow: auto;
+    font-weight: 800;
 }
 
 .question-title {
@@ -77,6 +86,7 @@ header button.shuffle {
     /*grid when game starts */
     grid-template-rows: 3fr 3fr;
     overflow: hidden;
+    font-weight: 500;
 }
 
 .question-header {
@@ -101,7 +111,8 @@ header button.shuffle {
 
 #popup {
     position: absolute;
-    top:30px;
+    width:fit-content;
+    top:20px;
     left:50%;
     transform:translate(-50%,0);
     z-index: 1000;
@@ -114,6 +125,15 @@ header button.shuffle {
     box-shadow: 0px 6px hsla(220, 40%, 10%, 1);
     transition: all ease .25s;
     opacity:0;
+}
+
+#popup i {
+    position:absolute;
+    z-index:1100;
+    top:0;
+    left:0;
+    font-size: 1.8rem;
+    transform: translate(-40%,-20%);
 }
 
 @media screen and (max-width: 768px) {
@@ -167,10 +187,11 @@ header button.shuffle {
     text-align: center;
     color: #fff;
     font-size: 1.5rem;
-    font-size: clamp(16px, 5vw, 32px);
+    font-size: clamp(16px, 5.5vw, 32px);
     border-radius: .3rem;
     background: hsla(220, 40%, 40%, 0.4);
-    box-shadow: 0px 10px hsla(220, 40%, 10%, 0.8);
+    box-shadow: 0px 10px hsla(220, 40%, 10%, 0.8),
+    inset 0px 1px 1px 0px rgba(255,255,255,.2);
 }
 
 .answers-wrapper .answer:active {
@@ -194,6 +215,7 @@ header .shuffle,
     -moz-osx-font-smoothing: inherit;
     text-align: inherit;
     cursor: pointer;
+    user-select: none;
 }
 
 .answers-wrapper .correct {
