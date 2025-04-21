@@ -19,6 +19,19 @@ fetch("js/countries.json")
 const flagImg = document.querySelector("#flag img");
 const answerButtons = document.querySelectorAll(".answer");
 const shuffleButton = document.querySelector(".shuffle");
+const correctAnswersElement = document.querySelector("#correct .score");
+const incorrectAnswersElement = document.querySelector("#incorrect .score");
+const popupElement = document.querySelector("#popup");
+const endGameUi = document.getElementById("end-game");
+const startScreen = document.getElementById("start-game");
+const gameScreen = document.getElementById("game-screen");
+const playButton = document.getElementById("btn-start-game");
+const replayButton = document.getElementById("replay");
+const showFlag = document.getElementById("flag");
+const answersWrapper = document.querySelector(".answers-wrapper");
+const answerScore = document.querySelectorAll(".answers-score");
+const endCorrect = document.querySelector(".end-score #correct .score");
+const endIncorrect = document.querySelector(".end-score #incorrect .score");
 
 // Shuffle function
 function shuffleArray(array) {
@@ -40,6 +53,7 @@ function removeItem(array, item) {
   if (index !== -1) {
     array.splice(index, 1);
   }
+  return array; // Return the modified array for chaining
 }
 
 // tries and points
@@ -58,28 +72,35 @@ let incorrectStreak = 0;
 // answer buttons
 function handleButtonClick(event) {
   const clickedButton = event.target;
-  const clickedcountryName = clickedButton.textContent;
-
-  // right & wrong answers elements
-  const correctAnswersElement = document.querySelector("#correct .score");
-  const incorrectAnswersElement = document.querySelector("#incorrect .score");
+  const clickedCountryName = clickedButton.textContent;
+  const isCorrect = clickedCountryName === selectedName;
 
   // Remove previous classes from all buttons
   answerButtons.forEach((otherButton) => {
     otherButton.classList.remove("correct", "incorrect");
   });
 
-  // Check if clicked option matches selectedName
-  if (clickedcountryName === selectedName) {
+  // Update score and UI based on correct/incorrect answer
+  if (isCorrect) {
+    // Handle correct answer
     clickedButton.classList.add("correct");
-    correctAnswers += 1;
-
+    correctAnswers++;
+    correctStreak++;
+    incorrectStreak = 0;
+    
+    // Animate correct score
     correctAnswersElement.classList.remove("highlight-animation");
-    void correctAnswersElement.offsetWidth;
+    void correctAnswersElement.offsetWidth; // Force reflow
     correctAnswersElement.classList.add("highlight-animation");
+    
+    // Show streak message
+    displayStreakMessage(true);
   } else {
+    // Handle incorrect answer
     clickedButton.classList.add("incorrect");
-
+    incorrectAnswers++;
+    incorrectStreak++;
+    
     // Highlight the correct answer
     answerButtons.forEach((button) => {
       if (button.textContent === selectedName) {
@@ -88,25 +109,31 @@ function handleButtonClick(event) {
         }, 150);
       }
     });
-
-    incorrectAnswers += 1;
+    
+    // Animate incorrect score
     incorrectAnswersElement.classList.remove("highlight-animation");
-    void incorrectAnswersElement.offsetWidth;
+    void incorrectAnswersElement.offsetWidth; // Force reflow
     incorrectAnswersElement.classList.add("highlight-animation");
+    
+    // Show streak message and reset correct streak
+    displayStreakMessage(false);
+    correctStreak = 0;
   }
 
-  // Write the right and wrong answers
+  // Update score displays
   correctAnswersElement.textContent = correctAnswers;
   incorrectAnswersElement.textContent = incorrectAnswers;
+  totalAnswers++;
 
-  totalAnswers++; // Increment total answers
+  // Generate new options after a delay
+  setTimeout(() => {
+    generateOptions();
+  }, 600);
+}
 
-  // Check if clicked option matches selectedName
-  if (clickedcountryName === selectedName) {
-    // Increment correct answers streak and reset incorrect streak
-    correctStreak++;
-    incorrectStreak = 0;
-
+// Function to display streak messages
+function displayStreakMessage(isCorrect) {
+  if (isCorrect) {
     // Show message for correct streak
     switch (correctStreak) {
       case 5:
@@ -133,13 +160,7 @@ function handleButtonClick(event) {
       default:
         break;
     }
-
-    // Log correct streak value for debugging
-    // console.log("Correct Streak:", correctStreak);
   } else {
-    // Increment incorrect answers streak
-    incorrectStreak++;
-
     // Show message for incorrect streak
     switch (incorrectStreak) {
       case 3:
@@ -172,29 +193,17 @@ function handleButtonClick(event) {
     } else if (correctStreak >= 99) {
       displayMessage("HOW??? You missed the last one!");
     }
-
-    // reset correct streak
-    correctStreak = 0;
-
-    // Log incorrect streak value for debugging
-    // console.log("Incorrect Streak:", incorrectStreak);
   }
-
-  // Generate new options after a delay
-  setTimeout(() => {
-    generateOptions();
-  }, 600);
 }
 
 // Function to display messages
 function displayMessage(message) {
-  const popupElement = document.querySelector("#popup");
   popupElement.textContent = message;
-  popupElement.style.opacity = 1;
-  popupElement.style.top = 40 + "px";
+  popupElement.style.opacity = "1";
+  popupElement.style.top = "40px";
   setTimeout(() => {
-    popupElement.style.opacity = 0;
-    popupElement.style.top = 20 + "px";
+    popupElement.style.opacity = "0";
+    popupElement.style.top = "20px";
   }, 3000);
 }
 
@@ -235,7 +244,6 @@ function generateOptions() {
   // Get the ISO code and name of the selected country
   const selectedIsoCode = selectedCountry.isoCode;
   selectedName = selectedCountry.countryName;
-  console.log(selectedName);
 
   // add respective image
   flagImg.src = selectedCountry.flag4x3;
@@ -251,14 +259,11 @@ function generateOptions() {
     removeItem(countriesCopy, randomCountry);
   }
 
-  // how many answers
-  console.log("Total answers at generateOptions: " + totalAnswers);
-
   // Combine the names of the selected country and other countries
-  const allcountryNamePts = [selectedName, ...otherCountries];
+  const allOptions = [selectedName, ...otherCountries];
 
   // Shuffle the array of country names
-  const shuffledNames = shuffleArray(allcountryNamePts);
+  const shuffledNames = shuffleArray(allOptions);
 
   // Assign each name to a button
   answerButtons.forEach((button, index) => {
@@ -267,66 +272,63 @@ function generateOptions() {
   });
 }
 
-// declare endGameUi
-const endGameUi = document.getElementById("end-game");
-
 // Function to handle end of game
 function endGame() {
-  // Display final report
-  console.log("Game over! Total answers:", totalAnswers);
-  console.log("Correct answers:", correctAnswers);
-  console.log("Incorrect answers:", incorrectAnswers);
-
-  // You can also update the UI to indicate end of game
+  // Update UI to indicate end of game
   endGameUi.style.display = "grid";
-
-  const endCorrect = document.querySelector(".end-score #correct .score");
   endCorrect.textContent = correctAnswers;
-  const endIncorrect = document.querySelector(".end-score #incorrect .score");
   endIncorrect.textContent = incorrectAnswers;
 }
 
-// Attach click event listener to the shuffle button
-if (shuffleButton) {
-  shuffleButton.addEventListener("click", () => {
-    location.reload();
+// Function to start the game
+function startGame() {
+  startScreen.style.display = "none";
+  gameScreen.style.display = "grid";
+  
+  // Reset scores
+  correctAnswers = 0;
+  incorrectAnswers = 0;
+  totalAnswers = 0;
+  correctStreak = 0;
+  incorrectStreak = 0;
+  usedCountries = [];
+  
+  // Update score displays
+  correctAnswersElement.textContent = "0";
+  incorrectAnswersElement.textContent = "0";
+  
+  // Show game elements
+  answerScore.forEach((element) => {
+    element.style.opacity = "1";
   });
+  
+  showFlag.style.display = "grid";
+  answersWrapper.style.display = "grid";
+  
+  // Generate first question
+  generateOptions();
+}
+
+// Function to restart the game
+function restartGame() {
+  location.reload();
+}
+
+// Attach event listeners
+if (shuffleButton) {
+  shuffleButton.addEventListener("click", restartGame);
 } else {
   console.error("Shuffle button element not found!");
 }
 
-// Play button
-const startScreen = document.getElementById("start-game");
-const gameScreen = document.getElementById("game-screen");
-const playButton = document.getElementById("btn-start-game");
-const replayButton = document.getElementById("replay");
-const showFlag = document.getElementById("flag");
-const answersWrapper = document.querySelector(".answers-wrapper");
-//const questionTitle = document.querySelector(".question-title");
-const answerScore = document.querySelectorAll(".answers-score");
-
 if (playButton) {
-  playButton.addEventListener("click", () => {
-    startScreen.style.display = "none";
-    gameScreen.style.display = "grid";
-    //questionTitle.style.opacity = "0";
-
-    answerScore.forEach((element) => {
-      element.style.opacity = "1";
-    });
-
-    showFlag.style.display = "grid";
-    answersWrapper.style.display = "grid";
-    generateOptions();
-  });
+  playButton.addEventListener("click", startGame);
 } else {
   console.error("Play button not found!");
 }
 
 if (replayButton) {
-  replayButton.addEventListener("click", () => {
-    location.reload();
-  });
+  replayButton.addEventListener("click", restartGame);
 } else {
-  console.error("Play button not found!");
+  console.error("Replay button not found!");
 }
