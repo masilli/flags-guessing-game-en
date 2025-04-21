@@ -58,7 +58,7 @@ let incorrectStreak = 0;
 // answer buttons
 function handleButtonClick(event) {
   const clickedButton = event.target;
-  const clickedcountryNamePt = clickedButton.textContent;
+  const clickedcountryName = clickedButton.textContent;
 
   // right & wrong answers elements
   const correctAnswersElement = document.querySelector("#correct .score");
@@ -70,7 +70,7 @@ function handleButtonClick(event) {
   });
 
   // Check if clicked option matches selectedName
-  if (clickedcountryNamePt === selectedName) {
+  if (clickedcountryName === selectedName) {
     clickedButton.classList.add("correct");
     correctAnswers += 1;
 
@@ -102,7 +102,7 @@ function handleButtonClick(event) {
   totalAnswers++; // Increment total answers
 
   // Check if clicked option matches selectedName
-  if (clickedcountryNamePt === selectedName) {
+  if (clickedcountryName === selectedName) {
     // Increment correct answers streak and reset incorrect streak
     correctStreak++;
     incorrectStreak = 0;
@@ -110,25 +110,25 @@ function handleButtonClick(event) {
     // Show message for correct streak
     switch (correctStreak) {
       case 5:
-        displayMessage("5 já cá cantam. Continua assim!");
+        displayMessage("5 in a row! Keep it up!");
         break;
       case 10:
-        displayMessage("10 certas, és um chico esperto!");
+        displayMessage("10 correct! You're on fire!");
         break;
       case 25:
-        displayMessage("Uau! 25 de seguida!");
+        displayMessage("Wow! 25 in a row!");
         break;
       case 50:
-        displayMessage("Incrível! 50 certas!");
+        displayMessage("Incredible! 50 correct!");
         break;
       case 75:
-        displayMessage("75?! Pareces uma enciclopédia!");
+        displayMessage("75?! You're like an encyclopedia!");
         break;
       case 99:
-        displayMessage("99!!! Será que consegues o pleno?");
+        displayMessage("99!!! Can you make it perfect?");
         break;
       case 100:
-        displayMessage("Parabéns! Conseguiste!!!");
+        displayMessage("Congratulations! You did it!!!");
         break;
       default:
         break;
@@ -143,16 +143,16 @@ function handleButtonClick(event) {
     // Show message for incorrect streak
     switch (incorrectStreak) {
       case 3:
-        displayMessage("Oh não! 3 de seguida...");
+        displayMessage("Oh no! 3 in a row...");
         break;
       case 5:
-        displayMessage("Hey! Tás a dormir?");
+        displayMessage("Hey! Are you sleeping?");
         break;
       case 10:
-        displayMessage("10 erradas! Estudasses...");
+        displayMessage("10 wrong! Should have studied...");
         break;
       case 20:
-        displayMessage("Tantas erradas... assim não vais lá!");
+        displayMessage("So many mistakes... you won't get far like this!");
         break;
       default:
         break;
@@ -160,17 +160,17 @@ function handleButtonClick(event) {
 
     // Check if the correct streak is interrupted
     if (correctStreak >= 10 && correctStreak < 25) {
-      displayMessage("Oh não! Tinhas " + correctStreak + " certas...");
+      displayMessage("Oh no! You had " + correctStreak + " correct...");
     } else if (correctStreak >= 25 && correctStreak < 49) {
-      displayMessage("Já ias em " + correctStreak + " sem falhar.");
+      displayMessage("You were at " + correctStreak + " without failing.");
     } else if (correctStreak >= 49 && correctStreak < 50) {
-      displayMessage("Oh!!! Quase que chegavas a 50!");
+      displayMessage("Oh!!! You almost reached 50!");
     } else if (correctStreak >= 50 && correctStreak < 74) {
-      displayMessage("Depois de " + correctStreak + " certas, falhas assim?");
+      displayMessage("After " + correctStreak + " correct, you miss this one?");
     } else if (correctStreak >= 75 && correctStreak < 99) {
-      displayMessage(correctStreak + " sem errar, e agora isto?");
+      displayMessage(correctStreak + " without error, and now this?");
     } else if (correctStreak >= 99) {
-      displayMessage("COMO??? Erraste a última!");
+      displayMessage("HOW??? You missed the last one!");
     }
 
     // reset correct streak
@@ -227,14 +227,14 @@ function generateOptions() {
   let selectedCountry;
   do {
     selectedCountry = getRandomItem(countriesCopy);
-  } while (usedCountries.includes(selectedCountry.countryNamePt));
+  } while (usedCountries.includes(selectedCountry.countryName));
 
   // Add the selected country to the array of used countries
-  usedCountries.push(selectedCountry.countryNamePt);
+  usedCountries.push(selectedCountry.countryName);
 
   // Get the ISO code and name of the selected country
   const selectedIsoCode = selectedCountry.isoCode;
-  selectedName = selectedCountry.countryNamePt;
+  selectedName = selectedCountry.countryName;
   console.log(selectedName);
 
   // add respective image
@@ -247,7 +247,7 @@ function generateOptions() {
   const otherCountries = [];
   for (let i = 0; i < 3; i++) {
     const randomCountry = getRandomItem(countriesCopy);
-    otherCountries.push(randomCountry.countryNamePt);
+    otherCountries.push(randomCountry.countryName);
     removeItem(countriesCopy, randomCountry);
   }
 
