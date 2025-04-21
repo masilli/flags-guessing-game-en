@@ -4,8 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A flag guessing game to test your knowledge of world flags">
+    <meta name="theme-color" content="#3498db">
     <title>Flag Guessing Game</title>
 
+    <!-- Preload critical resources -->
+    <link rel="preload" href="css/style.css" as="style">
+    <link rel="preload" href="js/game.js" as="script" crossorigin="anonymous">
+    <link rel="preload" href="js/countries.json" as="fetch" crossorigin="anonymous">
+    
     <link rel="shortcut icon" href="imgs/flag-guessing-game-favicon.jpg" type="image/x-icon">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,47 +24,78 @@
     <link href="https://emoji-css.afeld.me/emoji.css" rel="stylesheet">
 
     <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        #loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 
 </head>
 
 <body>
-
+    <!-- Loading indicator -->
+    <div id="loading">
+        <div class="spinner"></div>
+    </div>
+    
     <header>
-        <button class="shuffle">↺</button>
-        <p><span class="icon">&#9872;</span> flag game for <span class="seb">Sebastian</span></p>
+        <button class="shuffle" aria-label="Shuffle questions">↺</button>
+        <p><span class="icon" aria-hidden="true">&#9872;</span> flag game for <span class="seb">Sebastian</span></p>
     </header>
     <main>
         <div id="start-game">
             <div class="question-title">
                 GUESS <br>THE FLAG!
             </div>
-            <button id="btn-start-game">PLAY</button>
+            <button id="btn-start-game" aria-label="Start game">PLAY</button>
         </div>
-        <div id="game-screen">
+        <div id="game-screen" aria-live="polite">
             <div class="question-header">
                 <div id="correct" class="answers-score">
-                    <div class="icon">✅</div>
-                    <div class="score">0</div>
+                    <div class="icon" aria-hidden="true">✅</div>
+                    <div class="score" aria-label="Correct answers">0</div>
                 </div>
                 <div class="question-wrapper">
                     <div id="flag">
-                        <img src="" alt="">
+                        <img src="" alt="Flag to guess">
                     </div>
                 </div>
                 <div id="incorrect" class="answers-score">
-                    <div class="icon">❌</div>
-                    <div class="score">0</div>
+                    <div class="icon" aria-hidden="true">❌</div>
+                    <div class="score" aria-label="Incorrect answers">0</div>
                 </div>
-                <div id="popup">
-                    <i class="em em-smiley"></i>
+                <div id="popup" role="alert" aria-live="assertive">
+                    <i class="em em-smiley" aria-hidden="true"></i>
                     <p>Oops! After 50 correct answers, you missed this one?!</p>
                 </div>
             </div>
-            <div class="answers-wrapper">
-                <button class="answer correct" id="optA">A</button>
-                <button class="answer" id="optB">B</button>
-                <button class="answer" id="optC">C</button>
-                <button class="answer" id="optC">D</button>
+            <div class="answers-wrapper" role="group" aria-label="Answer options">
+                <button class="answer correct" id="optA" aria-label="Option A">A</button>
+                <button class="answer" id="optB" aria-label="Option B">B</button>
+                <button class="answer" id="optC" aria-label="Option C">C</button>
+                <button class="answer" id="optD" aria-label="Option D">D</button>
             </div>
         </div>
         <div id="end-game">
@@ -66,23 +104,38 @@
             </div>
             <div class="end-score">
                 <div id="correct">
-                    <div class="icon">✅</div>
+                    <div class="icon" aria-hidden="true">✅</div>
                     <p>Correct <br>answers</p>
                     <div class="score">0</div>
                 </div>
                 <div id="incorrect">
-                    <div class="icon">❌</div>
+                    <div class="icon" aria-hidden="true">❌</div>
                     <p>Incorrect <br>answers</p>
                     <div class="score">0</div>
                 </div>
             </div>
             <div class="play-again">
                 <p>Want to play again?</p>
-                <button id="replay">PLAY</button>
+                <button id="replay" aria-label="Play again">PLAY</button>
             </div>
         </div>
     </main>
     <footer>masilli.com</footer>
+    
+    <!-- NoScript fallback -->
+    <noscript>
+        <div style="text-align: center; padding: 20px; background-color: #f8f8f8; margin: 20px; border-radius: 5px;">
+            <h2>JavaScript Required</h2>
+            <p>This game requires JavaScript to run. Please enable JavaScript in your browser settings to play.</p>
+        </div>
+    </noscript>
+    
     <script type="module" src="js/game.js"></script>
+    <script>
+        // Hide loading indicator when the page is fully loaded
+        window.addEventListener('load', function() {
+            document.getElementById('loading').style.display = 'none';
+        });
+    </script>
 </body>
 </html>
